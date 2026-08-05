@@ -13,11 +13,13 @@
         name="description"
         content="Busted Up Blues is an independent record label helping artists create music, build their brands, and connect with listeners."
     >
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
     <style>
         :root {
@@ -398,136 +400,270 @@
                 </a>
             </p>
 
-       
-                <div class="recorder">
-                    <div class="recorder-header">
-                        <div class="status">
-                            <span class="status-dot"></span>
+       <section class="voice-contact">
+    <style>
+        .voice-contact {
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 24px;
+            font-family: Helvetica, Arial, sans-serif;
+            color: #161616;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.08);
+        }
 
-                            <span
-                                class="status-text"
-                                aria-live="polite"
-                            >
-                                Ready to record
-                            </span>
-                        </div>
+        .voice-contact * {
+            box-sizing: border-box;
+        }
 
-                        <span class="timer">00:00</span>
-                    </div>
+        .voice-contact h2 {
+            margin: 0 0 8px;
+        }
 
-                    <div class="waveform" aria-hidden="true">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
+        .voice-contact p {
+            color: #666;
+        }
 
-                    <div class="controls">
-                        <button
-                            class="record-button"
-                            type="button"
-                        >
-                            Start
-                        </button>
+        .voice-recorder {
+            padding: 22px;
+            margin: 24px 0;
+            background: #f4f4f4;
+            border-radius: 16px;
+        }
 
-                        <button
-                            class="stop-button"
-                            type="button"
-                            disabled
-                        >
-                            Stop
-                        </button>
+        .recorder-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
 
-                        <button
-                            class="delete-button"
-                            type="button"
-                            disabled
-                        >
-                            Delete
-                        </button>
-                    </div>
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-                    <audio
-                        class="audio-preview"
-                        controls
-                        hidden
-                    ></audio>
-                </div>
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #999;
+            border-radius: 50%;
+        }
 
-                <form class="voice-form">
-                    <input
-                        type="hidden"
-                        class="api-key-input"
-                        value="API_KEY"
-                    >
+        .voice-recorder.recording .status-dot {
+            background: #d52d2d;
+            animation: pulse 1s infinite;
+        }
 
-                    <div class="field">
-                        <input
-                            class="name-input"
-                            type="text"
-                            name="name"
-                            autocomplete="name"
-                            placeholder="Your name"
-                            required
-                        >
-                    </div>
+        .waveform {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            height: 80px;
+            margin-bottom: 20px;
+            background: #fff;
+            border-radius: 12px;
+        }
 
-                    <div class="field">
-                        <input
-                            class="email-input"
-                            type="email"
-                            name="email"
-                            autocomplete="email"
-                            placeholder="you@example.com"
-                            required
-                        >
-                    </div>
+        .waveform span {
+            width: 5px;
+            height: 12px;
+            background: #aaa;
+            border-radius: 999px;
+        }
 
-                    <button
-                        class="send-button"
-                        type="submit"
-                        disabled
-                    >
-                        Send Voice Message
-                    </button>
+        .voice-recorder.recording .waveform span {
+            background: #161616;
+            animation: wave 0.8s ease-in-out infinite;
+        }
 
-                    <p
-                        class="form-message"
-                        aria-live="polite"
-                    ></p>
+        .waveform span:nth-child(2n) {
+            animation-delay: 0.1s;
+        }
 
-                    <p class="privacy-note">
-                        Max recording length: 2 min. Data kept for one year. Copyright 2026 Pinveson Services, LLC.
-                    </p>
-                </form>
-            </section>
-       
-    </main>
+        .waveform span:nth-child(3n) {
+            animation-delay: 0.2s;
+        }
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-        
-            const section =
-                document.querySelector(".voice-contact");
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-            if (!section) {
-                return;
+        .voice-contact button {
+            padding: 12px 18px;
+            border: 0;
+            border-radius: 999px;
+            font: inherit;
+            font-weight: 700;
+            color: #fff;
+            background: #161616;
+            cursor: pointer;
+        }
+
+        .voice-contact button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .stop-button {
+            background: #c83232 !important;
+        }
+
+        .delete-button {
+            color: #161616 !important;
+            background: #ddd !important;
+        }
+
+        .audio-preview {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .voice-contact input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #d5d5d5;
+            border-radius: 11px;
+            font: inherit;
+        }
+
+        .send-button {
+            width: 100%;
+        }
+
+        .form-message {
+            min-height: 22px;
+            margin-top: 14px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .form-message.error {
+            color: #c83232;
+        }
+
+        .form-message.success {
+            color: #26734d;
+        }
+
+        @keyframes pulse {
+            50% {
+                opacity: 0.35;
+                transform: scale(1.4);
+            }
+        }
+
+        @keyframes wave {
+            0%,
+            100% {
+                height: 12px;
             }
 
+            50% {
+                height: 52px;
+            }
+        }
+    </style>
+
+    <h2>Leave a Voice Message</h2>
+
+    <p>
+        Record a message directly from your microphone.
+    </p>
+
+    <div class="voice-recorder">
+        <div class="recorder-header">
+            <div class="status">
+                <span class="status-dot"></span>
+                <span class="status-text">Ready to record</span>
+            </div>
+
+            <span class="timer">00:00</span>
+        </div>
+
+        <div class="waveform" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="controls">
+            <button class="record-button" type="button">
+                Start
+            </button>
+
+            <button class="stop-button" type="button" disabled>
+                Stop
+            </button>
+
+            <button class="delete-button" type="button" disabled>
+                Delete
+            </button>
+        </div>
+
+        <audio class="audio-preview" controls hidden></audio>
+    </div>
+
+    <form class="voice-form" action="https://api.staticforms.dev/submit" method="POST">
+        <input type="hidden" name="apiKey" value="sf_67ed4fe3d3dc0fec24c1f598">
+       <div class="field">
+            <input
+                class="name-input"
+                type="text"
+                placeholder="Your name"
+                required
+            >
+        </div>
+
+        <div class="field">
+            <input
+                class="email-input"
+                type="email"
+                placeholder="you@example.com"
+                required
+            >
+        </div>
+
+        <button class="send-button" type="submit" disabled>
+            Send Voice Message
+        </button>
+
+        <p class="form-message" aria-live="polite"></p>
+    </form>
+
+    <script>
+        (function () {
+            const scripts =
+                document.getElementsByTagName("script");
+
+            const currentScript =
+                scripts[scripts.length - 1];
+
+            const section =
+                currentScript.closest(".voice-contact");
+
             const recorder =
-                section.querySelector(".recorder");
+                section.querySelector(".voice-recorder");
 
             const form =
                 section.querySelector(".voice-form");
@@ -556,24 +692,13 @@
             const formMessage =
                 section.querySelector(".form-message");
 
-            const nameInput =
-                section.querySelector(".name-input");
-
-            const emailInput =
-                section.querySelector(".email-input");
-
-            const apiKeyInput =
-                section.querySelector(".api-key-input");
-
             let mediaRecorder = null;
             let microphoneStream = null;
-            let recordedChunks = [];
+            let chunks = [];
             let recordedBlob = null;
             let audioURL = null;
             let timerInterval = null;
-            let elapsedSeconds = 0;
-
-            const maximumRecordingSeconds = 120;
+            let seconds = 0;
 
             recordButton.addEventListener(
                 "click",
@@ -592,7 +717,7 @@
 
             form.addEventListener(
                 "submit",
-                sendRecording
+                handleSubmit
             );
 
             async function startRecording() {
@@ -603,89 +728,74 @@
                         "Microphone access requires HTTPS or localhost.",
                         "error"
                     );
-
                     return;
                 }
 
-                if (!navigator.mediaDevices?.getUserMedia) {
+                if (
+                    !navigator.mediaDevices ||
+                    !navigator.mediaDevices.getUserMedia
+                ) {
                     showMessage(
-                        "This browser does not support microphone recording.",
+                        "Microphone recording is unavailable.",
                         "error"
                     );
-
                     return;
                 }
 
                 if (!window.MediaRecorder) {
                     showMessage(
-                        "This browser does not support the MediaRecorder API.",
+                        "This browser does not support audio recording.",
                         "error"
                     );
-
                     return;
                 }
 
                 try {
                     microphoneStream =
                         await navigator.mediaDevices.getUserMedia({
-                            audio: {
-                                echoCancellation: true,
-                                noiseSuppression: true,
-                                autoGainControl: true
-                            }
+                            audio: true
                         });
 
-                    recordedChunks = [];
+                    chunks = [];
                     recordedBlob = null;
 
-                    if (audioURL) {
-                        URL.revokeObjectURL(audioURL);
-                        audioURL = null;
-                    }
-
-                    audioPreview.pause();
-                    audioPreview.removeAttribute("src");
-                    audioPreview.load();
-                    audioPreview.hidden = true;
+                    clearPreview();
 
                     const options =
-                        getSupportedRecordingOptions();
+                        getRecorderOptions();
 
-                    mediaRecorder = options
-                        ? new MediaRecorder(
-                            microphoneStream,
-                            options
-                        )
-                        : new MediaRecorder(
-                            microphoneStream
-                        );
+                    try {
+                        mediaRecorder = options
+                            ? new MediaRecorder(
+                                microphoneStream,
+                                options
+                            )
+                            : new MediaRecorder(
+                                microphoneStream
+                            );
+                    } catch (formatError) {
+                        mediaRecorder =
+                            new MediaRecorder(
+                                microphoneStream
+                            );
+                    }
 
-                    mediaRecorder.addEventListener(
-                        "dataavailable",
-                        event => {
+                    mediaRecorder.ondataavailable =
+                        function (event) {
                             if (
                                 event.data &&
                                 event.data.size > 0
                             ) {
-                                recordedChunks.push(
-                                    event.data
-                                );
+                                chunks.push(event.data);
                             }
-                        }
-                    );
+                        };
 
-                    mediaRecorder.addEventListener(
-                        "stop",
-                        finishRecording
-                    );
+                    mediaRecorder.onstop =
+                        finishRecording;
 
-                    mediaRecorder.addEventListener(
-                        "error",
-                        event => {
-                            console.error(
-                                "Recorder error:",
-                                event.error
-                            );
+                    mediaRecorder.onerror =
+                        function (event) {
+                            console.error(event);
 
                             stopTimer();
                             stopMicrophone();
@@ -704,10 +814,9 @@
                                 "An error occurred while recording.",
                                 "error"
                             );
-                        }
-                    );
+                        };
 
-                    mediaRecorder.start(250);
+                    mediaRecorder.start();
 
                     recorder.classList.add("recording");
 
@@ -723,36 +832,14 @@
                 } catch (error) {
                     console.error(error);
 
-                    stopTimer();
                     stopMicrophone();
-
-                    recorder.classList.remove(
-                        "recording"
-                    );
-
-                    recordButton.disabled = false;
-                    stopButton.disabled = true;
 
                     if (
                         error.name === "NotAllowedError" ||
                         error.name === "SecurityError"
                     ) {
                         showMessage(
-                            "Microphone permission was denied. Allow microphone access and try again.",
-                            "error"
-                        );
-                    } else if (
-                        error.name === "NotFoundError"
-                    ) {
-                        showMessage(
-                            "No microphone was found.",
-                            "error"
-                        );
-                    } else if (
-                        error.name === "NotReadableError"
-                    ) {
-                        showMessage(
-                            "Your microphone is being used by another application.",
+                            "Microphone access was denied.",
                             "error"
                         );
                     } else {
@@ -776,8 +863,8 @@
                 }
 
                 stopTimer();
-                stopButton.disabled = true;
 
+                stopButton.disabled = true;
                 statusText.textContent =
                     "Processing...";
 
@@ -791,12 +878,12 @@
                 stopMicrophone();
 
                 const mimeType =
-                    mediaRecorder?.mimeType ||
-                    recordedChunks[0]?.type ||
-                    "audio/webm";
+                    mediaRecorder.mimeType ||
+                    (chunks[0] && chunks[0].type) ||
+                    "audio/mp4";
 
                 recordedBlob = new Blob(
-                    recordedChunks,
+                    chunks,
                     {
                         type: mimeType
                     }
@@ -808,22 +895,15 @@
                 if (!recordedBlob.size) {
                     recordedBlob = null;
 
-                    deleteButton.disabled = true;
-                    sendButton.disabled = true;
-
                     statusText.textContent =
                         "Recording failed";
 
                     showMessage(
-                        "No audio was captured. Please try again.",
+                        "No audio was captured. Try again.",
                         "error"
                     );
 
                     return;
-                }
-
-                if (audioURL) {
-                    URL.revokeObjectURL(audioURL);
                 }
 
                 audioURL =
@@ -831,6 +911,7 @@
 
                 audioPreview.src = audioURL;
                 audioPreview.hidden = false;
+                audioPreview.load();
 
                 deleteButton.disabled = false;
                 sendButton.disabled = false;
@@ -840,30 +921,14 @@
             }
 
             function deleteRecording() {
-                if (
-                    mediaRecorder &&
-                    mediaRecorder.state === "recording"
-                ) {
-                    mediaRecorder.stop();
-                }
-
                 stopTimer();
                 stopMicrophone();
+                clearPreview();
 
+                chunks = [];
                 recordedBlob = null;
-                recordedChunks = [];
+                seconds = 0;
 
-                if (audioURL) {
-                    URL.revokeObjectURL(audioURL);
-                    audioURL = null;
-                }
-
-                audioPreview.pause();
-                audioPreview.removeAttribute("src");
-                audioPreview.load();
-                audioPreview.hidden = true;
-
-                elapsedSeconds = 0;
                 updateTimer();
 
                 recorder.classList.remove("recording");
@@ -873,16 +938,13 @@
                 deleteButton.disabled = true;
                 sendButton.disabled = true;
 
-                sendButton.textContent =
-                    "Send Voice Message";
-
                 statusText.textContent =
                     "Ready to record";
 
                 clearMessage();
             }
 
-            async function sendRecording(event) {
+            async function handleSubmit(event) {
     event.preventDefault();
     clearMessage();
 
@@ -893,31 +955,52 @@
 
     if (!recordedBlob) {
         showMessage(
-            "Record a voice message first.",
+            "Record a message first.",
             "error"
         );
         return;
     }
 
-    const extension = recordedBlob.type.includes("mp4")
-        ? "m4a"
-        : recordedBlob.type.includes("ogg")
-        ? "ogg"
-        : "webm";
+    const nameInput =
+        section.querySelector(".name-input");
+
+    const emailInput =
+        section.querySelector(".email-input");
+
+    const apiKeyInput =
+        form.querySelector('[name="apiKey"]');
+
+    const mimeType =
+        recordedBlob.type || "audio/mp4";
+
+    const extension =
+        mimeType.includes("mp4")
+            ? "m4a"
+            : mimeType.includes("ogg")
+            ? "ogg"
+            : "webm";
 
     const audioFile = new File(
         [recordedBlob],
         `voice-message-${Date.now()}.${extension}`,
         {
-            type: recordedBlob.type
+            type: mimeType
         }
     );
+
+    if (audioFile.size > 4.5 * 1024 * 1024) {
+        showMessage(
+            "The recording is too large. Please record a shorter message.",
+            "error"
+        );
+        return;
+    }
 
     const formData = new FormData();
 
     formData.append(
         "apiKey",
-        "sf_67ed4fe3d3dc0fec24c1f598"
+        apiKeyInput.value
     );
 
     formData.append(
@@ -932,11 +1015,11 @@
 
     formData.append(
         "message",
-        "A new voice message was submitted."
+        "New voice message from the Busted Up Blues website."
     );
 
     formData.append(
-        "audio",
+        "voiceMessage",
         audioFile
     );
 
@@ -948,19 +1031,21 @@
             "https://api.staticforms.dev/submit",
             {
                 method: "POST",
-                body: formData,
-                headers: {
-                    Accept: "application/json"
-                }
+                body: formData
             }
         );
 
-        if (!response.ok) {
-            throw new Error("Upload failed");
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+            throw new Error(
+                result.message ||
+                "The message could not be sent."
+            );
         }
 
         showMessage(
-            "Your voice message was sent.",
+            "Your voice message was sent successfully.",
             "success"
         );
 
@@ -969,71 +1054,64 @@
         console.error(error);
 
         showMessage(
-            "Your message could not be sent.",
+            error.message ||
+            "Your voice message could not be sent.",
             "error"
         );
 
         sendButton.disabled = false;
-        sendButton.textContent = "Send Voice Message";
+        sendButton.textContent =
+            "Send Voice Message";
     }
 }
-            function getSupportedRecordingOptions() {
+            function getRecorderOptions() {
                 const types = [
+                    "audio/mp4",
                     "audio/webm;codecs=opus",
                     "audio/webm",
-                    "audio/mp4",
-                    "audio/ogg;codecs=opus",
-                    "audio/ogg"
+                    "audio/ogg;codecs=opus"
                 ];
 
-                for (const mimeType of types) {
+                for (
+                    let index = 0;
+                    index < types.length;
+                    index++
+                ) {
+                    const type = types[index];
+
                     if (
-                        MediaRecorder.isTypeSupported(
-                            mimeType
-                        )
+                        MediaRecorder.isTypeSupported(type)
                     ) {
-                        return { mimeType };
+                        return {
+                            mimeType: type
+                        };
                     }
                 }
 
                 return null;
             }
 
-            function getAudioFileExtension(
-                mimeType
-            ) {
-                if (mimeType.includes("mp4")) {
-                    return "m4a";
-                }
-
-                if (mimeType.includes("ogg")) {
-                    return "ogg";
-                }
-
-                return "webm";
-            }
-
             function startTimer() {
                 stopTimer();
 
-                elapsedSeconds = 0;
+                seconds = 0;
                 updateTimer();
 
-                timerInterval = setInterval(() => {
-                    elapsedSeconds++;
-                    updateTimer();
+                timerInterval = setInterval(
+                    function () {
+                        seconds++;
+                        updateTimer();
 
-                    if (
-                        elapsedSeconds >=
-                        maximumRecordingSeconds
-                    ) {
-                        stopRecording();
-                    }
-                }, 1000);
+                        if (seconds >= 120) {
+                            stopRecording();
+                        }
+                    },
+                    1000
+                );
             }
 
             function stopTimer() {
-                if (timerInterval) {
+                if (timerInterval !== null) {
                     clearInterval(timerInterval);
                     timerInterval = null;
                 }
@@ -1041,17 +1119,19 @@
 
             function updateTimer() {
                 const minutes = String(
-                    Math.floor(
-                        elapsedSeconds / 60
-                    )
+                    Math.floor(seconds / 60)
                 ).padStart(2, "0");
 
-                const seconds = String(
-                    elapsedSeconds % 60
-                ).padStart(2, "0");
+                const remainingSeconds =
+                    String(seconds % 60).padStart(
+                        2,
+                        "0"
+                    );
 
                 timerText.textContent =
-                    minutes + ":" + seconds;
+                    minutes +
+                    ":" +
+                    remainingSeconds;
             }
 
             function stopMicrophone() {
@@ -1061,15 +1141,29 @@
 
                 microphoneStream
                     .getTracks()
-                    .forEach(track => track.stop());
+                    .forEach(function (track) {
+                        track.stop();
+                    });
 
                 microphoneStream = null;
+            }
+
+            function clearPreview() {
+                if (audioURL) {
+                    URL.revokeObjectURL(audioURL);
+                    audioURL = null;
+                }
+
+                audioPreview.pause();
+                audioPreview.removeAttribute("src");
+                audioPreview.load();
+                audioPreview.hidden = true;
             }
 
             function showMessage(text, type) {
                 formMessage.textContent = text;
                 formMessage.className =
-                    "form-message " +  type;
+                    "form-message " + type;
             }
 
             function clearMessage() {
@@ -1077,21 +1171,10 @@
                 formMessage.className =
                     "form-message";
             }
-
-            window.addEventListener(
-                "beforeunload",
-                () => {
-                    stopTimer();
-                    stopMicrophone();
-
-                    if (audioURL) {
-                        URL.revokeObjectURL(
-                            audioURL
-                        );
-                    }
-                }
-            );
-        });
+        })();
     </script>
+</section>
+</section>
+</main>
 </body>
 </html>
